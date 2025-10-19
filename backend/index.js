@@ -13,8 +13,8 @@ const app = express();
 const port = process.env.PORT || 5000;
 
 const corsOptions = {
-  origin: process.env.NODE_ENV === 'production' 
-    ? 'https://seu-dominio-frontend.com' 
+  origin: process.env.NODE_ENV === 'production'
+    ? 'https://seu-dominio-frontend.com'
     : 'http://localhost:3000',
   optionsSuccessStatus: 200,
   credentials: true
@@ -30,20 +30,22 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 const generalLimiter = rateLimit({
   windowMs: 15 * 60 * 1000,
-  max: 100,
+  max: 200, 
   standardHeaders: true,
   legacyHeaders: false,
+  message: 'Muitas requisições deste IP, tente novamente em 15 minutos.' 
 });
 
 const loginLimiter = rateLimit({
   windowMs: 15 * 60 * 1000,
-  max: 5,
+  max: 5, 
   standardHeaders: true,
   legacyHeaders: false,
+  message: 'Muitas tentativas de login. Tente novamente mais tarde.' 
 });
 
-app.use('/api', generalLimiter);
-app.use('/api/auth/login', loginLimiter);
+app.use('/api', generalLimiter); 
+app.use('/api/auth/login', loginLimiter); 
 
 app.use('/api', allRoutes);
 

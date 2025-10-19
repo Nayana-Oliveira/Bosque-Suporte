@@ -21,15 +21,21 @@ const auth = (req, res, next) => {
   }
 
   try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const decoded = jwt.verify(token, process.env.JWT_ACCESS_SECRET);
     req.user = decoded;
     next();
   } catch (err) {
+    if (err.name === 'TokenExpiredError') {
+      return res.status(401).json({ message: 'Token expirado.' });
+    }
     return res.status(401).json({ message: 'Token inválido.' });
   }
 };
 
 const isSupport = (req, res, next) => {
+  if (!req.user) {
+     return res.status(401).json({ message: 'Autenticação necessária.' });
+  }
   if (req.user.tipo !== 'suporte') {
     return res.status(403).json({ message: 'Acesso negado. Rota apenas para suporte.' });
   }
