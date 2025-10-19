@@ -1,6 +1,4 @@
-# 🌳 Escola Bosque - Sistema de Tickets de Suporte
-
-![Logo da Escola Bosque](frontend/public/logo-escola-bosque.png)
+# Escola Bosque - Sistema de Tickets de Suporte
 
 Este é um projeto full-stack de um Sistema de Tickets de Suporte, desenvolvido para a Escola Bosque. Ele permite que usuários abram chamados que são gerenciados pela equipe de suporte através de um painel de administração seguro e moderno.
 
